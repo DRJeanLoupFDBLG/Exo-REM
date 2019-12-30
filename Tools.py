@@ -24,7 +24,6 @@ from astropy.constants import k_B, R, G, M_jup, R_jup, R_sun
 from astropy import units as u
 import csv
 import json
-
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from scipy.optimize import curve_fit
@@ -39,7 +38,7 @@ from astropy.table import Table
 def gaussian1D(height, x, center_x, width_x, logfile=[]):
     """Returns a gaussian function with the given parameters"""
     if width_x <= 0 :
-        logfile.add({'Error':'width of gaussian not valid', 
+        logfile.append({'Error':'width of gaussian not valid', 
         'Function':'gaussian1D', 
         'Input':[height, x, center_x, width_x,
         ]})
@@ -66,7 +65,7 @@ def ConstrFilter(loc, Trans ,tabWavGeneral, logfile=[]):
     Trans=np.array(Trans)
     tabWavGeneral=np.array(tabWavGeneral)
     if min(loc)>max(tabWavGeneral) or max(loc)<min(tabWavGeneral) :
-        logfile.add({'Error':'filter not included in the spectrum', 
+        logfile.append({'Error':'filter not included in the spectrum', 
         'Function':'ConstrFilter', 
         'Input':[min(loc), max(tabWavGeneral), max(loc), min(tabWavGeneral),
         ]})
@@ -98,7 +97,7 @@ def RadiusCalc (logg, M, logfile=[]):
         radius in Rjup 
     """
     if logg < 2 :
-        logfile.add({'Error':'gravity inferior to 100 cgs', 
+        logfile.append({'Error':'gravity inferior to 100 cgs', 
         'Function':'RadiusCalc', 
         'Input':[logg, M,
         ]})
@@ -121,7 +120,7 @@ def xi2 (calc,obs,errObs, logfile=[]) :
         chi2
     """
     if len(errObs[errObs <= 0]) > 0:
-        logfile.add({'Error':'negative error', 
+        logfile.append({'Error':'negative error', 
         'Function':'xi2', 
         'Input':[calc,obs,errObs,
         ]})
@@ -143,7 +142,7 @@ def MassCalc (logg, R, logfile=[]):
         mass in Mjup
     """
     if logg < 2 :
-        logfile.add({'Error':'gravity inferior to 100 cgs', 
+        logfile.append({'Error':'gravity inferior to 100 cgs', 
         'Function':'MassCalc', 
         'Input':[logg, R,
         ]})
@@ -164,7 +163,7 @@ def PlusMinus (Tab, logfile=[]):
         max difference compare to mean value
     """
     if len(Tab) == 0 :
-        logfile.add({'Error':'empty array', 
+        logfile.append({'Error':'empty array', 
         'Function':'PlusMinus', 
         'Input':[Tab,
         ]})
@@ -188,7 +187,7 @@ def RminXsig(Rrange, xi2max, obs, synth, logfile=[]):
         minimal radius in conditions
     """
     if len(obs[:,2][obs[:,2] <= 0]) > 0:
-        logfile.add({'Error':'negative error', 
+        logfile.append({'Error':'negative error', 
         'Function':'RminXsig', 
         'Input':[Rrange, xi2max, obs, synth,
         ]})
@@ -217,7 +216,7 @@ def RmaxXsig(Rrange, xi2min, obs, synth, logfile=[]):
         maximal radius in conditions
     """
     if len(obs[:,2][obs[:,2] <= 0]) > 0:
-        logfile.add({'Error':'negative error', 
+        logfile.append({'Error':'negative error', 
         'Function':'RmiaxXsig', 
         'Input':[Rrange, xi2max, obs, synth,
         ]})
@@ -239,7 +238,7 @@ def GenMmwamu(NameArray, logfile = []):
     #Output: an array with the molar mass of te given molecules
     ########
 
-    RefCat=np.genfromtxt("mmw.amu", dtype={'names': ('Id', 'Name', 'MolarMass'),
+    RefCat=np.genfromtxt("input/mmw.amu", dtype={'names': ('Id', 'Name', 'MolarMass'),
         'formats': ('i', 'U10', 'f')}, delimiter=",", skip_header=1)
     mmwamu=np.zeros(len(NameArray))
     errPart=[]
@@ -251,7 +250,7 @@ def GenMmwamu(NameArray, logfile = []):
         else :
             errPart.append(NameArray[n])
     if len(errPart) > 0 :
-        logfile.add({'Error':'name of molecules non recognised', 
+        logfile.append({'Error':'name of molecules non recognised', 
         'Function':'NameArray', 
         'Input':[errPart,
         ]})
@@ -274,7 +273,7 @@ def altitud(NameArray, vmr, g, mass, rad, P, T, logfile = []):
     mmw = np.zeros(nPressLvl)
     mmwamu = GenMmwamu(NameArray, logfile=logfile)
     if mmwamu == float('nan') or g*mass*rad <= 0 or len(P) == 0 or len(T)==0:
-        logfile.add({'Error':'problem input', 
+        logfile.append({'Error':'problem input', 
         'Function':'altitud', 
         'Input':[logfile.last(),vmr,g, mass,rad,P,T,
         ]})
@@ -332,7 +331,7 @@ def nofitgaus(nbins, bins):
     return fit if gaussian on historgram
     https://stackoverflow.com/questions/19206332/gaussian-fit-for-python
     """
-    x_bins=zeros(len(nbins))
+    x_bins=np.zeros(len(nbins))
     for npos in range(0,len(nbins)):
         x_bins[npos]=(bins[npos]+bins[npos])/2
         mean = sum(nbins*x_bins)/sum(nbins)
@@ -341,10 +340,11 @@ def nofitgaus(nbins, bins):
 
 
 
-def plotGrid(param, fit, dir_output, 
-        R_cond, M_cond,
-        NbDegreeFree,
-        z=["05", "1", "5"]):
+def plotGrid(param, fit, dir_output,
+             R_cond, M_cond,
+             NbDegreeFree,
+             z=["05", "1", "5"]
+             ):
     """
     author:
         JLB
@@ -372,6 +372,8 @@ def plotGrid(param, fit, dir_output,
             z_par=(param.field("metalicity")[c]==1)
         elif zi=="5":
             z_par=(param.field("metalicity")[c]>3)
+        else:
+            print("unknown metallicity")
         
         loggf=np.log10(np.array(param.field("gravity"))[c])[z_par]
         Tefff=np.array(param.field("Teff"))[c][z_par]
@@ -394,14 +396,15 @@ def plotGrid(param, fit, dir_output,
         ylabel("$\log(g[cgs])$", size=60, labelpad=20)
         xlabel("$T_\mathrm{eff}$[K]", size=60, labelpad=20)
 
-        savefig(str(dir_output[0])+"ExoREMclassicXi2map"+str(FitType[0])+"_"+str(typeCloud)+"_z"+str(zi)+"_"+str(planetName[0])+".pdf", format="pdf", dpi=600)
+        #savefig(str(dir_output[0])+"ExoREMclassicXi2map"+str(FitType[0])+"_"+str(typeCloud)+"_z"+str(zi)+"_"+str(planetName[0])+".pdf", format="pdf", dpi=600)
     show()
     return()
 
 
 def plotHisto(datasets, grids, paramJup, param, sig_max, R_cond, M_cond, 
-        dir_output, planetname, ER_input, dirNem, option=["y","y","y","y","y"],
-        gen_NEMESIS=True):
+        dir_output, planetname, ER_input, NbDegreeFree, colors_planets, 
+        option=["y","y","y","y","y"]
+        ):
     """
     author:
         JLB
@@ -417,7 +420,6 @@ def plotHisto(datasets, grids, paramJup, param, sig_max, R_cond, M_cond,
         * R_cond: array with min and max radius in [m]
         * M_cond: array with min anx max mass in [kg]
         * option: array of y or n to compute histogram of : Teff, log10(g[cgs]), Mass[Mjup], Rad(Rjup) andmetallicity (0.3-1-3 x solaire)
-        *gen_NEMESIS: boolean to affect molecular abundance to best fits and generate NEMESIS files
 
     """
     fig, axs = plt.subplots(option.count("y"), 1 , figsize=(15, 20),
@@ -462,7 +464,7 @@ def plotHisto(datasets, grids, paramJup, param, sig_max, R_cond, M_cond,
                 nplot=nplot+1
             
             if option[2]=="y":
-                nbins, bins, patches = axs[nplot].hist(paramJup[n][in_cond]['mass']/M_jup.value,histtype='step', fill=False, range=[min(M_cond/cst.M_jup.value),max(M_cond)/cst.M_jup.value], bins=15, weights=1./paramJup[n][in_cond]['chi2final'], color=(colors_planets[m][0],colors_planets[m][1],colors_planets[m][2]))
+                nbins, bins, patches = axs[nplot].hist(paramJup[n][in_cond]['mass']/M_jup.value,histtype='step', fill=False, range=[min(M_cond/M_jup.value),max(M_cond)/M_jup.value], bins=15, weights=1./paramJup[n][in_cond]['chi2final'], color=(colors_planets[m][0],colors_planets[m][1],colors_planets[m][2]))
                 nplot=nplot+1
             
             if option[3]=="y":
@@ -480,7 +482,7 @@ def plotHisto(datasets, grids, paramJup, param, sig_max, R_cond, M_cond,
         axs[3].set_title(titleRadius)
         '''
         ylabel("Normalised count with 1/$\chi^2$ coefficient")
-    fig.savefig(str(dir_output[0])+"HistogramsWthCdt_"+str(sig)+str(FitType[p])+"_"+str(typeCloud)+"_"+str(planetName[0])+".pdf", format="pdf", dpi=600)
+    #fig.savefig(str(dir_output[0])+"HistogramsWthCdt_"+str(sig_max)+str(FitType[p])+"_"+str(typeCloud)+"_"+str(planetName[0])+".pdf", format="pdf", dpi=600)
     #plt.show()
     
     rad_f=paramJup[n][in_cond]['radius']/R_jup.value
@@ -497,158 +499,6 @@ def plotHisto(datasets, grids, paramJup, param, sig_max, R_cond, M_cond,
     print(int(avz),"+-",int(avz-min(z_f)+max(z_f)-avz)/2)
 
     returnTab=paramJup[n][in_cond]
-    if gen_NEMESIS:
-        # extract abundances
-        ph2=0.8532
-        phe=0.1452
-        pz=0.0016
-
-        nlay=50
-        nlaysmooth=5
-        idPlanet=55
-
-        FilesToUse=param[n][in_cond[:,0]]
-        FilesToUse['radius']=paramJup[n][in_cond]['radius']/cst.R_jup.value
-        FilesToUse['mass']=paramJup[n][in_cond]['mass']/cst.M_jup.value
-        nameMoles=["H2","He","H2O","CO","CH4","NH3", "CO2", "PH3","TiO", "VO","Na","K", "FeH"]
-        massMol=[2,4.0026,18.015,28.01,16.04,17.031,44.009,33.998, 63.866, 66.9409, 22.98977, 39.0983, 56.853]
-        n=0
-        ch4Ovh2o=[]
-        h20_f=[]
-        co2_f=[]
-        ch4_f=[]
-        co_f=[]
-        nh3_f=[]
-        FinalArray=np.zeros((len(FilesToUse),8))
-        InFA=0
-        nbug=0
-
-        for model in FilesToUse:
-            print("#model:",n)
-            T=Table.read(ER_input+str(model[3])[2:-1], table_id="Structure" )["Temperature"]
-            Pin=Table.read(ER_input+str(model[3])[2:-1], table_id="Structure" )["Pressure"] #mbar
-            P=((Pin/1000.)*u.bar).to(u.cds.atm)
-            g=float(model[0])/100000.
-            logg=np.log10(model[0])
-            mass=float(model[5])
-            rad=model[4]
-            vmr=np.zeros((len(nameMoles),len(P)))
-            Teff=model[1]#K
-
-            nmols=2
-            vmr[0,:]=np.ones(len(P))*ph2
-            vmr[1,:]=np.ones(len(P))*phe
-            h2ofrac=0
-            ch4frac=0
-            co2frac=0
-            cofrac=0
-            nh3frac=0
-            
-            for mols in nameMoles[2:]:
-                vmr[nmols]=Table.read(ER_input+str(model[3])[2:-1], table_id="Structure" )["MolFrac"+mols][0]
-                if mols=="H2O":
-                    h2ofrac=np.average(vmr[nmols][(T<float(FilesToUse["Teff"][0]))[:,0]])
-                    h20_f.append(h2ofrac)
-                elif mols=="CH4":
-                    ch4frac=np.average(vmr[nmols][(T<float(FilesToUse["Teff"][0]))[:,0]])
-                    ch4_f.append(ch4frac)
-                elif mols=="CO2":
-                    co2frac=np.average(vmr[nmols][(T<float(FilesToUse["Teff"][0]))[:,0]])
-                    co2_f.append(co2frac)
-                elif mols=="CO":
-                    cofrac=np.average(vmr[nmols][(T<float(FilesToUse["Teff"][0]))[:,0]])
-                    co_f.append(cofrac)
-                elif mols=="NH3":
-                    nh3frac=np.average(vmr[nmols][(T<float(FilesToUse["Teff"][0]))[:,0]])
-                    nh3_f.append(nh3frac)
-                nmols=nmols+1
-            ch4Ovh2o.append(ch4frac/h2ofrac)
-            H=np.array(altitud(nameMoles,vmr,g*(u.km)/(u.s**2),mass,rad,np.transpose(P[::-1])[0]*u.bar,np.transpose(T[::-1])[0]*u.K))
-                    
-            # generate NEMESIS files
-            aer = open(dirNem+"/"+'aerosol_'+str(n)+'.ref', 'wb')
-            smoothProf=open(dirNem+"/"+'PTsmooth_'+str(n)+'.csv', 'wb')
-            
-            with open(dirNem+"/"+'PT_'+str(n)+'.csv', 'wb') as f:
-                aer.write(("#grey cloud\n").encode('utf-8'))
-                aer.write((str(nlay)+"  1\n").encode('utf-8'))
-                f.write((str(nlay)+"  1.5000\n").encode('utf-8'))
-                smoothProf.write((str(nlaysmooth)+"  1.5000 "+str(nlay)+"\n").encode('utf-8'))
-                smoothPar=nlay/nlaysmooth
-
-                for i in range(nlay):
-                    f.write((str('%.6f' %float(H[i]))+"\t"+str(int(T[::-1][i][0]))+"\t"+str(int(0.1*T[::-1][i][0]))+"\n").encode('utf-8'))
-                    aer.write((str('%.6f' %float(H[i]))+"\t1\n").encode('utf-8'))
-                    if i==0:
-                        smoothProf.write((str('%.6f' %float(H[i]))+"\t"+str(int(T[::-1][i][0]))+"\t"+str(int(0.1*T[::-1][i][0]))+"\n").encode('utf-8'))                
-                    elif i>smoothPar and smoothPar+nlay/nlaysmooth<nlay-1:
-                        smoothProf.write((str('%.6f' %float(H[i]))+"\t"+str(int(T[::-1][i][0]))+"\t"+str(int(0.1*T[::-1][i][0]))+"\n").encode('utf-8'))
-                        smoothPar=smoothPar+nlay/nlaysmooth
-                    elif i==nlay-1:
-                        smoothProf.write((str('%.6f' %float(H[i]))+"\t"+str(int(T[::-1][i][0]))+"\t"+str(int(0.1*T[::-1][i][0]))+"\n").encode('utf-8'))
-            f.close()
-            aer.close()
-            smoothProf.close()
-
-            RefCat=np.genfromtxt("mmw.amu", dtype={'names': ('Id', 'Name', 'MolarMass'),
-                'formats': ('i', 'S10', 'f')}, delimiter=",", skip_header=1)
-            MolIdArray=np.zeros(len(nameMoles))
-            for nmo in range(len(nameMoles)):        
-                for item in enumerate(RefCat["Name"]):
-                    if nameMoles[nmo].encode('utf-8')==item[1][1:]:
-                        MolIdArray[nmo]= RefCat["Id"][item[0]]
-
-            f = open(dirNem+"/"+str(n)+'.ref', 'wb')
-            f.write(("           1\n").encode('utf-8'))
-            f.write(("           1\n").encode('utf-8'))
-            f.write(("  "+str(idPlanet)+"   0.00  "+str(nlay)+" "+str(len(nameMoles))+"\n").encode('utf-8'))
-            ArrayHead= " height (km) \t press (atm) \t temp (K)"
-            i=0
-            for IdMol in MolIdArray:
-                f.write(("  "+str(int(IdMol))+" 0\n").encode('utf-8'))
-                ArrayHead=ArrayHead+" \t VMR "+nameMoles[i]
-                i=i+1
-            f.write((ArrayHead+"\n").encode('utf-8'))
-            H2HeNavg=13.933059906489863 #(0.85*H2+0.15*He x Navog)
-            for i in range(nlay):
-                line=str('%.6f' %float(H[i]))+" \t "+str('%.6e' %float(P[::-1][i][0].value))+" \t "+str(int(T[::-1][i][0]))
-                vmrgram= H2HeNavg*vmr[:,i]/massMol
-                for vmrMol in vmrgram:
-                    line=line+" \t "+str(vmrMol)
-                f.write((line+"\n").encode('utf-8'))
-            f.close()
-
-            f = open(dirNem+"/"+str(n)+'.set', 'w')
-            f.write("*********************************************************\n")
-            f.write("Number of zenith angles :  1\n")
-            f.write("1.00000000000000        1.00000000000000 \n")
-            f.write("Number of fourier components :  0\n")
-            f.write("Number of azimuth angles for fourier analysis :   0\n")
-            f.write("Sunlight on(1) or off(0) :  0\n")
-            f.write("Distance from Sun (AU) :   10\n")
-            f.write("Lower boundary cond. Thermal(0) Lambert(1) :  1\n")
-            f.write("Ground albedo :   0.000\n")
-            f.write("Surface temperature : "+str(float(max(T)))+"\n")
-            f.write("*********************************************************\n")
-            f.write("Alt. at base of bot.layer (not limb) :     0.00\n")
-            f.write("Number of atm layers :  "+str(nlay)+"\n")
-            f.write("Layer type :  3\n")
-            f.write("Layer integration :  1\n")
-            f.write("*********************************************************\n")  
-            f.close()
-            
-            n=n+1
-
-            # generate new files with additional abundance data with Exo-REM parameters
-            if nh3frac>0 and ch4frac>0 and h2ofrac>0:
-                FinalArray[InFA-nbug]=[np.log10(nh3frac/massMol[5]),np.log10(ch4frac/massMol[4]),np.log10(h2ofrac/massMol[2]),Teff[0],chi_f[InFA],mass,rad,logg]
-            else :
-                nbug=nbug+1
-            InFA=InFA+1
-        if nbug>0:
-            FinalArray=FinalArray[:-nbug]
-        np.save(dir_output[0]+planetName[0]+"_FromExoREMwtMol.npy",FinalArray)
-        returnTab=FinalArray
     return(returnTab)
 
 def CompareResults(datasets, grids, sig_max, R_cond, M_cond,
@@ -716,7 +566,7 @@ def CompareResults(datasets, grids, sig_max, R_cond, M_cond,
                 nplot=nplot+1
 
             if option[2]=="y":
-                nbins, bins, patches = axs[nplot].hist(ExoREMarray[n][in_cond]['mass']/M_jup.value,histtype='step', fill=False, range=[min(M_cond/cst.M_jup.value),max(M_cond)/cst.M_jup.value], bins=15, weights=1./ExoREMarray[n][in_cond]['chi2final'], color=(colors_planets[m][0],colors_planets[m][1],colors_planets[m][2]))
+                nbins, bins, patches = axs[nplot].hist(ExoREMarray[n][in_cond]['mass']/M_jup.value,histtype='step', fill=False, range=[min(M_cond/M_jup.value),max(M_cond)/M_jup.value], bins=15, weights=1./ExoREMarray[n][in_cond]['chi2final'], color=(colors_planets[m][0],colors_planets[m][1],colors_planets[m][2]))
                 nplot=nplot+1
 
             if option[3]=="y":
@@ -791,10 +641,6 @@ class ErrLog():
         self.log=[]
         self.comment=[]
         self.path=file
-
-    def add(self, input, comment=""):
-        self.log.append(input)
-        self.comment.append(comment)
     
     def last(self):
         return self.log[-1]
