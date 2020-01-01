@@ -38,7 +38,7 @@ from astropy.table import Table
 def gaussian1D(height, x, center_x, width_x, logfile=[]):
     """Returns a gaussian function with the given parameters"""
     if width_x <= 0 :
-        logfile.append({'Error':'width of gaussian not valid', 
+        logfile.add({'Error':'width of gaussian not valid', 
         'Function':'gaussian1D', 
         'Input':[height, x, center_x, width_x,
         ]})
@@ -65,7 +65,7 @@ def ConstrFilter(loc, Trans ,tabWavGeneral, logfile=[]):
     Trans=np.array(Trans)
     tabWavGeneral=np.array(tabWavGeneral)
     if min(loc)>max(tabWavGeneral) or max(loc)<min(tabWavGeneral) :
-        logfile.append({'Error':'filter not included in the spectrum', 
+        logfile.add({'Error':'filter not included in the spectrum', 
         'Function':'ConstrFilter', 
         'Input':[min(loc), max(tabWavGeneral), max(loc), min(tabWavGeneral),
         ]})
@@ -97,7 +97,7 @@ def RadiusCalc (logg, M, logfile=[]):
         radius in Rjup 
     """
     if logg < 2 :
-        logfile.append({'Error':'gravity inferior to 100 cgs', 
+        logfile.add({'Error':'gravity inferior to 100 cgs', 
         'Function':'RadiusCalc', 
         'Input':[logg, M,
         ]})
@@ -120,7 +120,7 @@ def xi2 (calc,obs,errObs, logfile=[]) :
         chi2
     """
     if len(errObs[errObs <= 0]) > 0:
-        logfile.append({'Error':'negative error', 
+        logfile.add({'Error':'negative error', 
         'Function':'xi2', 
         'Input':[calc,obs,errObs,
         ]})
@@ -142,7 +142,7 @@ def MassCalc (logg, R, logfile=[]):
         mass in Mjup
     """
     if logg < 2 :
-        logfile.append({'Error':'gravity inferior to 100 cgs', 
+        logfile.add({'Error':'gravity inferior to 100 cgs', 
         'Function':'MassCalc', 
         'Input':[logg, R,
         ]})
@@ -163,7 +163,7 @@ def PlusMinus (Tab, logfile=[]):
         max difference compare to mean value
     """
     if len(Tab) == 0 :
-        logfile.append({'Error':'empty array', 
+        logfile.add({'Error':'empty array', 
         'Function':'PlusMinus', 
         'Input':[Tab,
         ]})
@@ -187,7 +187,7 @@ def RminXsig(Rrange, xi2max, obs, synth, logfile=[]):
         minimal radius in conditions
     """
     if len(obs[:,2][obs[:,2] <= 0]) > 0:
-        logfile.append({'Error':'negative error', 
+        logfile.add({'Error':'negative error', 
         'Function':'RminXsig', 
         'Input':[Rrange, xi2max, obs, synth,
         ]})
@@ -216,7 +216,7 @@ def RmaxXsig(Rrange, xi2min, obs, synth, logfile=[]):
         maximal radius in conditions
     """
     if len(obs[:,2][obs[:,2] <= 0]) > 0:
-        logfile.append({'Error':'negative error', 
+        logfile.add({'Error':'negative error', 
         'Function':'RmiaxXsig', 
         'Input':[Rrange, xi2max, obs, synth,
         ]})
@@ -307,14 +307,14 @@ def altitud(NameArray, vmr, g, mass, rad, P, T, logfile = []):
 
 #############
 
-def gaus(x,a,x0,sigma):
+def gaus(x,a,x0,sigma, logfile = []):
     """
     gaussian function
     https://stackoverflow.com/questions/19206332/gaussian-fit-for-python
     """
     return a*np.exp(-(x-x0)**2/(2*sigma**2))
 
-def fitgaus(nbins, bins):
+def fitgaus(nbins, bins, logfile = []):
     """
     return fit if gaussian on historgram
     https://stackoverflow.com/questions/19206332/gaussian-fit-for-python
@@ -326,7 +326,7 @@ def fitgaus(nbins, bins):
         sigma = (max(x_bins)-min(x_bins))/2.# sum(nbins*(x_bins-mean)**2.)/sum(nbins)
     return curve_fit(gaus,x_bins,nbins,p0=[1,mean,sigma])
 
-def nofitgaus(nbins, bins):
+def nofitgaus(nbins, bins, logfile = []):
     """
     return fit if gaussian on historgram
     https://stackoverflow.com/questions/19206332/gaussian-fit-for-python
@@ -335,7 +335,7 @@ def nofitgaus(nbins, bins):
     for npos in range(0,len(nbins)):
         x_bins[npos]=(bins[npos]+bins[npos])/2
         mean = sum(nbins*x_bins)/sum(nbins)
-        sigma = (max(x_bins)-min(x_bins))/2.# sum(nbins*(x_bins-mean)**2.)/sum(nbins)
+        sigma = (max(x_bins)-min(x_bins))/2.
     return [mean,sigma]
 
 
@@ -343,7 +343,8 @@ def nofitgaus(nbins, bins):
 def plotGrid(param, fit, dir_output,
              R_cond, M_cond,
              NbDegreeFree,
-             z=["05", "1", "5"]
+             FitType,typeCloud,planetName,
+             z=["05", "1", "5"], logfile = []
              ):
     """
     author:
@@ -390,20 +391,20 @@ def plotGrid(param, fit, dir_output,
         contourf(X,Y,griddata((Tefff,loggf), xi2f, (X,Y), method='linear'), 
                 levels=chi2.isf(np.ones(len(levels10))-levels10, NbDegreeFree+1.), cmap=cm.coolwarm, extend="both") 
         cb=colorbar(shrink=0.4)
-        #cb.ax.set_ylabel('$ \chi^2_\mathrm{reduced}$', size=50)
         cb.ax.set_yticklabels(prob)
 
         ylabel("$\log(g[cgs])$", size=60, labelpad=20)
         xlabel("$T_\mathrm{eff}$[K]", size=60, labelpad=20)
 
-        #savefig(str(dir_output[0])+"ExoREMclassicXi2map"+str(FitType[0])+"_"+str(typeCloud)+"_z"+str(zi)+"_"+str(planetName[0])+".pdf", format="pdf", dpi=600)
+        savefig(str(dir_output[0])+"ExoREMclassicXi2map"+str(FitType[0])+"_"+str(typeCloud)+"_z"+str(zi)+"_"+str(planetName[0])+".pdf", format="pdf", dpi=600)
     show()
     return()
 
 
 def plotHisto(datasets, grids, paramJup, param, sig_max, R_cond, M_cond, 
         dir_output, planetname, ER_input, NbDegreeFree, colors_planets, 
-        option=["y","y","y","y","y"]
+        FitType,typeCloud,planetName,
+        option=["y","y","y","y","y"], logfile = []
         ):
     """
     author:
@@ -482,7 +483,7 @@ def plotHisto(datasets, grids, paramJup, param, sig_max, R_cond, M_cond,
         axs[3].set_title(titleRadius)
         '''
         ylabel("Normalised count with 1/$\chi^2$ coefficient")
-    #fig.savefig(str(dir_output[0])+"HistogramsWthCdt_"+str(sig_max)+str(FitType[p])+"_"+str(typeCloud)+"_"+str(planetName[0])+".pdf", format="pdf", dpi=600)
+    fig.savefig(str(dir_output[0])+"HistogramsWthCdt_"+str(sig_max)+str(FitType[p])+"_"+str(typeCloud)+"_"+str(planetName[0])+".pdf", format="pdf", dpi=600)
     #plt.show()
     
     rad_f=paramJup[n][in_cond]['radius']/R_jup.value
@@ -503,8 +504,8 @@ def plotHisto(datasets, grids, paramJup, param, sig_max, R_cond, M_cond,
 
 def CompareResults(datasets, grids, sig_max, R_cond, M_cond,
                 dir_output, planetname, ER_input, dirNem, 
-                ExoREMarray,OEarray,
-                option=["y","y","y","y","y"]#,NSarray
+                ExoREMarray,OEarray,sig,FitType,
+                option=["y","y","y","y","y"], logfile = []
                 ):
     """
     author:
@@ -639,11 +640,13 @@ class ErrLog():
     '''
     def __init__(self, file):
         self.log=[]
-        self.comment=[]
         self.path=file
     
     def last(self):
         return self.log[-1]
+
+    def add(self, info):
+        self.log.append(info)
     
     def save(self):
         np.savetxt(self.path,self.log,fmt="%s")

@@ -77,10 +77,10 @@ def UseExoREM(
     if FitType=="Full":
         loc=array(list(Spectrum.field("lambda"))+list(SED.field("lambda")))[:,0]
         ResSpec=array(Spectrum.field("lambda"))[:,0]/array(Spectrum.field("resolution"))[:,0]
-        FiltreId=loadtxt(dir_obs+"Tab_name-file_filters.tsv",dtype={'names':("id","file"),'formats':('S30','S30')},delimiter='	')
+        FiltreId=loadtxt(dir_obs+"Tab_name-file_filters.tsv",dtype={'names':("id","file"),'formats':('S40','S40')},delimiter='	')
     elif FitType=="SED":
         loc=array(list(SED.field("lambda")))[:,0]
-        FiltreId=loadtxt(dir_obs+"Tab_name-file_filters.tsv",dtype={'names':("id","file"),'formats':('S30','S30')},delimiter='	')
+        FiltreId=loadtxt(dir_obs+"Tab_name-file_filters.tsv",dtype={'names':("id","file"),'formats':('S40','S40')},delimiter='	')
     elif FitType=="Spec":
         loc=array(list(Spectrum.field("lambda")))[:,0]
         ResSpec=loc/array(Spectrum.field("resolution"))[:,0]
@@ -309,4 +309,4 @@ def UseExoREM(
     votable.to_xml(dir_output+"FitFinal"+FitType+"_"+typeCloud+"_"+planetName+".xml")
 
 
-UseExoREM()
+#UseExoREM()
