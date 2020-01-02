@@ -3,6 +3,10 @@
 # Description:
 ## Author: 
 Jean-Loup Baudino
+## Scientific use
+Please cite Baudino et al. 2015, 2017 and Charnay et al. 2018 (full reference in the export-bibtex.bib)
+## How to
+The easy way to use this program is to pass by the Jupyter notebook PlotResults.ipynb
 ## Files and directories
  - Tools.py: contains functions and class used by the other programs
  - pipeline.py: compares the observation and models and generate a XML file storing the result
@@ -13,3 +17,5 @@ Jean-Loup Baudino
        - cloud: Exo-REM models with clouds stored in XML containing spectrum and profiles
        - nocloud: Exo-REM models without cloud stored in XML containing spectrum and profiles
  - output: output directory where the results are saved
+ - PlotResults.ipynb: do the comparison between models and observation and plot the result as grids or histograms
+ -  export-bibtex.bib: contains the full reference list of papers relatives to this work
