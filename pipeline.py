@@ -35,14 +35,14 @@ def UseExoREM(
     """
 
     print("###########################################")
-    print("##Beginin of the pipeline")
+    print("##Begining of the pipeline")
     print("###########################################")
 
     err = ErrLog(test_log)
     err.add([{"Title":"Pipeline running"}])
 
     print("###########################################")
-    print("##Read param file")
+    print("##Reading param file")
     print("###########################################")
 
     # Read the input file
@@ -50,7 +50,7 @@ def UseExoREM(
     R, Distance, FitType, dir_input, dir_obs, dir_output, planetName, typeCloud = param_file.get_param()
 
     print("###########################################")
-    print("##Read obs file and list of models")
+    print("##Reading obs file and list of models")
     print("###########################################")
 
     # Read list of model in grid
@@ -61,7 +61,7 @@ def UseExoREM(
     tabWavGeneral=arange(16000,00,-20)
 
     print("###########################################")
-    print("##Read obs spectrum")
+    print("##Reading obs spectrum")
     print("###########################################")
 
     #Load observations
@@ -70,7 +70,7 @@ def UseExoREM(
 
     err.save()
     print("###########################################")
-    print("##Read filter")
+    print("##Reading filters")
     print("###########################################")
 
     #Load filter and resolution
@@ -89,7 +89,7 @@ def UseExoREM(
 
     err.save()
     print("###########################################")
-    print("##Build transmission filter")
+    print("##Building transmission filter")
     print("###########################################")
 
     # Generation of transmission a the resolution of Exo-REM
@@ -117,7 +117,7 @@ def UseExoREM(
 
     err.save()
     print("###########################################")
-    print("##Observed spectrum in one array")
+    print("##Adding Spectra in one array")
     print("###########################################")
 
     #Application of the filters on models
@@ -139,7 +139,7 @@ def UseExoREM(
 
     err.save()
     print("###########################################")
-    print("##Application of the filter on models")
+    print("##Applying filters on models")
     print("###########################################")
 
     #Genrate grid:
@@ -157,7 +157,7 @@ def UseExoREM(
 
     err.save()
     print("###########################################")
-    print("##Comparison models and spectrum")
+    print("##Comparing models and spectrum")
     print("###########################################")
 
     #########
@@ -237,7 +237,7 @@ def UseExoREM(
     err.add([{"Info":"End Computation"}])
     err.save()
     print("###########################################")
-    print("##Save results")
+    print("##Saving results")
     print("###########################################")
 
     #print results

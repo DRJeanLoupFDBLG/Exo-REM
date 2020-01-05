@@ -6,7 +6,7 @@
 Welcome to my github documentation!
 ***********************************
 
-Currently you can find here some sample of code developped for academic purpose.
+Here you can find some sample of codes developed for academic purpose.
 
 .. toctree::
    :maxdepth: 2
@@ -15,9 +15,10 @@ Currently you can find here some sample of code developped for academic purpose.
 Content:
 ========
 
-- Exo-REM: a directory containg programs in Python (using Numpy ans Scipy) to compare exoplanet observations 
+- Exo-REM: a directory containing programs in Python (using Numpy and Scipy) to compare exoplanet observations 
 with output of the Exo-REM model, in a 
 `Jupyter notebook <https://github.com/DRJeanLoupFDBLG/Exo-REM/blob/master/PlotResults.ipynb>`_ .
+
 
 Indices and tables
 ==================
