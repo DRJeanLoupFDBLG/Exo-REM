@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Python Module Index &#8212; My portfolio  documentation</title>
+    <title>2. pipeline module &#8212; My portfolio  documentation</title>
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,13 +14,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
- 
-
-    <script type="text/javascript">
-      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
-    </script>
-
-
+    <link rel="prev" title="1. Tools module" href="Tools.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,13 +23,26 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="#" title="Python Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="Tools.html" title="1. Tools module"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">My portfolio  documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Tools.html"
+                        title="previous chapter"><span class="section-number">1. </span>Tools module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pipeline.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -54,32 +61,37 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
+  <div class="section" id="module-pipeline">
+<span id="pipeline-module"></span><h1><span class="section-number">2. </span>pipeline module<a class="headerlink" href="#module-pipeline" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pipeline.UseExoREM">
+<code class="sig-prename descclassname">pipeline.</code><code class="sig-name descname">UseExoREM</code><span class="sig-paren">(</span><em class="sig-param">inputfile='input_data.json'</em>, <em class="sig-param">test_log='test_log.txt'</em><span class="sig-paren">)</span><a class="headerlink" href="#pipeline.UseExoREM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Author : JLB
+Date: 28/06/2019
+Description:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>read data, filters, grid of models</p></li>
+<li><p>fit the data</p></li>
+<li><p>save full result</p></li>
+<li><p>save 5 sigma result to add OE later</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>input: </dt><dd><p>JSON file containing:
+- R [m] 
+- Distance [m], 41.29 pc (d e) 10 pc (b c)
+- FitType=”SED” #Full, SED, Spec
+- dir_input=”../../data/Grilles/Charnay221118/run_cloud_f1.0_nosulfide_timescale_S0.003_newH2O-22-11-18/test/”
+- dir_output=”Analyse_Exo-REM/b/”
+- planetName=’HR8799b’
+- typeCloud=‘0003new’#‘0003new’, ‘nocloud</p>
+</dd>
+</dl>
+<p>output:</p>
+</dd></dl>
 
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-p"><strong>p</strong></a> | 
-   <a href="#cap-t"><strong>t</strong></a>
-   </div>
-
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-p"><td></td><td>
-       <strong>p</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="pipeline.html#module-pipeline"><code class="xref">pipeline</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-t"><td></td><td>
-       <strong>t</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="Tools.html#module-Tools"><code class="xref">Tools</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+</div>
 
 
           </div>
@@ -94,8 +106,11 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="#" title="Python Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="Tools.html" title="1. Tools module"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">My portfolio  documentation</a> &#187;</li> 
       </ul>
     </div>

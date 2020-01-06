@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Exo-REM'
+project = 'My portfolio'
 copyright = '2020, Jean-Loup Baudino'
 author = 'Jean-Loup Baudino'
 

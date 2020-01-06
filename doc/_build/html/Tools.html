@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>1. Tools module &#8212; My portfolio  documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. pipeline module" href="pipeline.html" />
+    <link rel="prev" title="Welcome to my portfolio" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pipeline.html" title="2. pipeline module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to my portfolio"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">My portfolio  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to my portfolio</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pipeline.html"
+                        title="next chapter"><span class="section-number">2. </span>pipeline module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Tools.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Tools">
+<span id="tools-module"></span><h1><span class="section-number">1. </span>Tools module<a class="headerlink" href="#module-Tools" title="Permalink to this headline">¶</a></h1>
+<p>Desc: Library of tools to interact with models and observations
+Auth: Jean-Loup Baudino
+Devl: Jean-Loup Baudino (JLB), Ryan Garland (RG)
+Date: 16/12/19
+Cont:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>gaussian1D(height, x, center_x, width_x)</p></li>
+<li><p>ConstrFilter(loc, flux ,tabWavGeneral)</p></li>
+<li><p>RadiusCalc (logg, M)</p></li>
+<li><p>xi2 (calc,obs,errObs)</p></li>
+<li><p>MassCalc (logg, R)</p></li>
+<li><p>PlusMinus (Tab)</p></li>
+<li><p>RminXsig(Rrange, xi2max, obs, synth)</p></li>
+<li><p>RmaxXsig(Rrange, xi2min, obs, synth)</p></li>
+<li><p>GenMmwamu(NameArray)</p></li>
+<li><p>altitud(NameArray,vmr,g, mass,rad,P,T)</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Hist: </dt><dd><ul class="simple">
+<li><p>16/12/19 creation From LocTools.py JLB</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="function">
+<dt id="Tools.CompareResults">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">CompareResults</code><span class="sig-paren">(</span><em class="sig-param">datasets, grids, sig_max, R_cond, M_cond, dir_output, planetname, ER_input, dirNem, ExoREMarray, OEarray, sig, FitType, option=['y', 'y', 'y', 'y', 'y'], logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.CompareResults" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>date:</dt><dd><p>09/07/2019</p>
+</dd>
+<dt>description:</dt><dd><p>use results from Exo-REM and NEMESIS OE to generate comparative histogram</p>
+</dd>
+<dt>inputs:</dt><dd><ul class="simple">
+<li><p>datasets</p></li>
+<li><p>grids</p></li>
+<li><p>sig_max</p></li>
+<li><p>R_cond</p></li>
+<li><p>M_cond</p></li>
+<li><p>dir_output</p></li>
+<li><p>planetname</p></li>
+<li><p>ER_input</p></li>
+<li><p>dirNem</p></li>
+<li><p>option</p></li>
+<li><p>ExoREMarray</p></li>
+<li><p>OEarray</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.ConstrFilter">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">ConstrFilter</code><span class="sig-paren">(</span><em class="sig-param">loc</em>, <em class="sig-param">Trans</em>, <em class="sig-param">tabWavGeneral</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.ConstrFilter" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>Def:</dt><dd><p>Extrapolate a filter function at a given resolution</p>
+</dd>
+<dt>Input:</dt><dd><ul class="simple">
+<li><p>loc = list of wavelength of the filter</p></li>
+<li><p>Trans = list of transmission of the filter</p></li>
+<li><p>tabWavGeneral = list of wavelength of the spectrum</p></li>
+</ul>
+</dd>
+<dt>Output:</dt><dd><p>transmission (non-normalised)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="Tools.ErrLog">
+<em class="property">class </em><code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">ErrLog</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.ErrLog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="simple">
+<dt>description :</dt><dd><p>class to manage the log file</p>
+</dd>
+<dt>author<span class="classifier"></span></dt><dd><p>JL Baudino</p>
+</dd>
+<dt>date :</dt><dd><p>22/12/2019</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="Tools.ErrLog.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">info</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.ErrLog.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Tools.ErrLog.last">
+<code class="sig-name descname">last</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tools.ErrLog.last" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Tools.ErrLog.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tools.ErrLog.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.GenMmwamu">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">GenMmwamu</code><span class="sig-paren">(</span><em class="sig-param">NameArray</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.GenMmwamu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="Tools.InputFile">
+<em class="property">class </em><code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">InputFile</code><span class="sig-paren">(</span><em class="sig-param">file</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.InputFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="simple">
+<dt>description :</dt><dd><p>class to read the JSON input file</p>
+</dd>
+<dt>author<span class="classifier"></span></dt><dd><p>JL Baudino</p>
+</dd>
+<dt>date :</dt><dd><p>22/12/2019</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="Tools.InputFile.get_param">
+<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tools.InputFile.get_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.MassCalc">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">MassCalc</code><span class="sig-paren">(</span><em class="sig-param">logg</em>, <em class="sig-param">R</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.MassCalc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>Def:</dt><dd><p>compute mass for a given gravity and radius</p>
+</dd>
+<dt>Input:</dt><dd><ul class="simple">
+<li><p>logg : log10(g[cgs])</p></li>
+<li><p>R : radius [Rjup]</p></li>
+</ul>
+</dd>
+<dt>Output:</dt><dd><p>mass in Mjup</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.PlusMinus">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">PlusMinus</code><span class="sig-paren">(</span><em class="sig-param">Tab</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PlusMinus" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>Def: </dt><dd><p>give the maximal difference value in a array compare to the mean value</p>
+</dd>
+<dt>Input:</dt><dd><p>Tab: an array</p>
+</dd>
+<dt>Output:</dt><dd><p>max difference compare to mean value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.RadiusCalc">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">RadiusCalc</code><span class="sig-paren">(</span><em class="sig-param">logg</em>, <em class="sig-param">M</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.RadiusCalc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>Def:</dt><dd><p>compute radius for a given gravity and mass</p>
+</dd>
+<dt>Input:</dt><dd><ul class="simple">
+<li><p>logg : log10(g[cgs])</p></li>
+<li><p>M : mass [Mjup]</p></li>
+</ul>
+</dd>
+<dt>Output:</dt><dd><p>radius in Rjup</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.RmaxXsig">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">RmaxXsig</code><span class="sig-paren">(</span><em class="sig-param">Rrange</em>, <em class="sig-param">xi2min</em>, <em class="sig-param">obs</em>, <em class="sig-param">synth</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.RmaxXsig" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>Def:</dt><dd><p>When a planetary radius is too smal, give the maximal radius that keep the chi2 &lt; a given value</p>
+</dd>
+<dt>Input:</dt><dd><ul class="simple">
+<li><p>Rrange: array of targeted radius range</p></li>
+<li><p>xi2max: maximal chi2 that stop the decrease of the radius</p></li>
+<li><p>obs: array with wavelength, flux, err flux</p></li>
+<li><p>synth: array with synthetic flux</p></li>
+</ul>
+</dd>
+<dt>Output:</dt><dd><p>maximal radius in conditions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.RminXsig">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">RminXsig</code><span class="sig-paren">(</span><em class="sig-param">Rrange</em>, <em class="sig-param">xi2max</em>, <em class="sig-param">obs</em>, <em class="sig-param">synth</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.RminXsig" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>Def:</dt><dd><p>When a planetary radius is too big, give the radius minimal that keep the chi2 &lt; a given value</p>
+</dd>
+<dt>Input:</dt><dd><ul class="simple">
+<li><p>Rrange: array of targeted radius range</p></li>
+<li><p>xi2max: maximal chi2 that stop the decrease of the radius</p></li>
+<li><p>obs: array with wavelength, flux, err flux</p></li>
+<li><p>synth: array with synthetic flux</p></li>
+</ul>
+</dd>
+<dt>Output:</dt><dd><p>minimal radius in conditions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.altitud">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">altitud</code><span class="sig-paren">(</span><em class="sig-param">NameArray</em>, <em class="sig-param">vmr</em>, <em class="sig-param">g</em>, <em class="sig-param">mass</em>, <em class="sig-param">rad</em>, <em class="sig-param">P</em>, <em class="sig-param">T</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.altitud" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="Tools.fitgaus">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">fitgaus</code><span class="sig-paren">(</span><em class="sig-param">nbins</em>, <em class="sig-param">bins</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.fitgaus" title="Permalink to this definition">¶</a></dt>
+<dd><p>return fit if gaussian on historgram
+<a class="reference external" href="https://stackoverflow.com/questions/19206332/gaussian-fit-for-python">https://stackoverflow.com/questions/19206332/gaussian-fit-for-python</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.gaus">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">gaus</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">a</em>, <em class="sig-param">x0</em>, <em class="sig-param">sigma</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.gaus" title="Permalink to this definition">¶</a></dt>
+<dd><p>gaussian function
+<a class="reference external" href="https://stackoverflow.com/questions/19206332/gaussian-fit-for-python">https://stackoverflow.com/questions/19206332/gaussian-fit-for-python</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.gaussian1D">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">gaussian1D</code><span class="sig-paren">(</span><em class="sig-param">height</em>, <em class="sig-param">x</em>, <em class="sig-param">center_x</em>, <em class="sig-param">width_x</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.gaussian1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a gaussian function with the given parameters</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.nofitgaus">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">nofitgaus</code><span class="sig-paren">(</span><em class="sig-param">nbins</em>, <em class="sig-param">bins</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.nofitgaus" title="Permalink to this definition">¶</a></dt>
+<dd><p>return fit if gaussian on historgram
+<a class="reference external" href="https://stackoverflow.com/questions/19206332/gaussian-fit-for-python">https://stackoverflow.com/questions/19206332/gaussian-fit-for-python</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.plotGrid">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">plotGrid</code><span class="sig-paren">(</span><em class="sig-param">param, fit, dir_output, R_cond, M_cond, NbDegreeFree, FitType, typeCloud, planetName, z=['05', '1', '5'], logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.plotGrid" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>date:</dt><dd><p>01/07/2019</p>
+</dd>
+<dt>description:</dt><dd><p>plot a grid gravity vs Teff and sigma color code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.plotHisto">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">plotHisto</code><span class="sig-paren">(</span><em class="sig-param">datasets, grids, paramJup, param, sig_max, R_cond, M_cond, dir_output, planetname, ER_input, NbDegreeFree, colors_planets, FitType, typeCloud, planetName, option=['y', 'y', 'y', 'y', 'y'], logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.plotHisto" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>date:</dt><dd><p>01/07/2019</p>
+</dd>
+<dt>desciption:</dt><dd><p>show historgram of physical results</p>
+</dd>
+<dt>input:</dt><dd><ul class="simple">
+<li><p>datasets: array of observations names</p></li>
+<li><p>grids: array of grids</p></li>
+<li><p>paramJup: result of fit</p></li>
+<li><p>sig_max: max sigma to take into-account</p></li>
+<li><p>R_cond: array with min and max radius in [m]</p></li>
+<li><p>M_cond: array with min anx max mass in [kg]</p></li>
+<li><p>option: array of y or n to compute histogram of : Teff, log10(g[cgs]), Mass[Mjup], Rad(Rjup) andmetallicity (0.3-1-3 x solaire)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="Tools.xi2">
+<code class="sig-prename descclassname">Tools.</code><code class="sig-name descname">xi2</code><span class="sig-paren">(</span><em class="sig-param">calc</em>, <em class="sig-param">obs</em>, <em class="sig-param">errObs</em>, <em class="sig-param">logfile=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.xi2" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>author:</dt><dd><p>JLB</p>
+</dd>
+<dt>Def:</dt><dd><p>compute the chi2 between model and observation</p>
+</dd>
+<dt>Input:</dt><dd><ul class="simple">
+<li><p>calc : synthetic flux (same size as the other)</p></li>
+<li><p>obs : observation flux (same size as the other)</p></li>
+<li><p>errObs : uncertainties on the observations (same size as the other)</p></li>
+</ul>
+</dd>
+<dt>Output:</dt><dd><p>chi2</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pipeline.html" title="2. pipeline module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to my portfolio"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">My portfolio  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Jean-Loup Baudino.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.
+    </div>
+  </body>
+</html>

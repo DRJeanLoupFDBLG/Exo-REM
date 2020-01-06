@@ -1,0 +1,23 @@
+.. Exo-REM documentation master file, created by
+   sphinx-quickstart on Fri Jan  3 09:21:31 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to my github documentation!
+===================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+Content:
+========
+
+- Exo-REM: a directory containg programs to compare exoplanet observations with output of the Exo-REM model, in a Jupyter notebook .
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
