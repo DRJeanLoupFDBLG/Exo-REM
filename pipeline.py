@@ -57,6 +57,7 @@ def UseExoREM(
     datafile=dir_obs+planetName+"_SPHERE_"+FitType+".xml"
     tabeGrille=loadtxt(dir_input+"ListXmlFiles.info",dtype=[("logg",float),("teff",float),("z",float),("loc",'S90')])
 
+
     #Exo-REM step
     tabWavGeneral=arange(16000,00,-20)
 
