@@ -6,5 +6,7 @@
     "dir_obs":"input/obs/",
 	"dir_output":"output/",
 	"planetName":"hr8799e",
-	"typeCloud":"0003new"
+	"typeCloud":"0003new",
+	"database":"Exo-REM.db",
+	"table":"GRIDCLOUD"
 }

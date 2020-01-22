@@ -8,6 +8,8 @@ import os.path
 import csv
 import sys
 import json
+import sqlite3
+
 
 
 def UseExoREM(
@@ -50,12 +52,20 @@ def UseExoREM(
     R, Distance, FitType, dir_input, dir_obs, dir_output, planetName, typeCloud = param_file.get_param()
 
     print("###########################################")
-    print("##Reading obs file and list of models")
+    print("##Reading obs file and db of models")
     print("###########################################")
 
     # Read list of model in grid
     datafile=dir_obs+planetName+"_SPHERE_"+FitType+".xml"
-    tabeGrille=loadtxt(dir_input+"ListXmlFiles.info",dtype=[("logg",float),("teff",float),("z",float),("loc",'S90')])
+
+    #tabeGrille=loadtxt(dir_input+"ListXmlFiles.info",dtype=[("logg",float),("teff",float),("z",float),("loc",'S90')])
+    conn = sqlite3.connect(param_file.database)
+    print("Opened database successfully")
+    tabeGrille = array(
+        list(
+        conn.execute("SELECT ID,GRAVITY,TEMPERATURE,METALLICITY,LOC from "+param_file.table)),
+        dtype=[('id',int),("logg",float),("teff",float),("z",float),("loc",'S90')]
+        )
 
 
     #Exo-REM step
@@ -201,6 +211,7 @@ def UseExoREM(
     TabLoc1sig=[]
     Tab5sig=[]
     Tab10sig=[]
+    n=1
     for ligne in FluxRef:
         xi2test=0
         flux=ligne[-1][:,0]
@@ -221,10 +232,14 @@ def UseExoREM(
         ErrAv, err = xi2(specDeg,Spectre,ErrSpectre, logfile=err)
         Err, err = xi2(corrspecDeg,Spectre,ErrSpectre, logfile=err)
         
-        Masse, err = MassCalc (float(info[0]), Rayon, logfile=err)
-        FinalToSave=[Rayon, info[0], info[1], info[2], info[3], Masse, ErrAv, Err, corrspecDeg]
+        Masse, err = MassCalc (float((conn.execute("SELECT GRAVITY from "+param_file.table+" where ID = "+str(n)).fetchall())[0][0]), Rayon, logfile=err)
+        FinalToSave=[Rayon, info[1], info[2], info[3], info[4], Masse, ErrAv, Err, corrspecDeg]
         tab_recap.append(FinalToSave)
         
+        conn.execute("UPDATE "+param_file.table+" set CHI2 = ?, RADIUS = ?, MASS = ? where ID ="+str(n), (Err, Rayon, Masse.value))
+        conn.commit()
+
+
         if Err/len(Spectre)<=1:
             Tab1sig.append(FinalToSave)
             TabLoc1sig.append(info[3])
@@ -234,6 +249,8 @@ def UseExoREM(
             Tab5sig.append(FinalToSave)
         if Err/len(Spectre)<=10:
             Tab10sig.append(FinalToSave)
+
+        n+=1
 
     err.add([{"Info":"End Computation"}])
     err.save()
@@ -310,4 +327,4 @@ def UseExoREM(
     votable.to_xml(dir_output+"FitFinal"+FitType+"_"+typeCloud+"_"+planetName+".xml")
 
 
-#UseExoREM()
+UseExoREM()

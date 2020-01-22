@@ -6,7 +6,7 @@
 Welcome to my portfolio
 ***********************
 
-Here you can find some sample of codes developed for academic purpose and virous links to my work.
+Here you can find some sample of codes developed for academic purpose and various links to my work.
 
 *Jean-Loup Baudino*
 
@@ -26,15 +26,15 @@ with output of the Exo-REM model, in a
 Publications and conferences:
 =============================
 
-- `Up to date list of paper <https://orcid.org/0000-0003-4061-2514>`_
+- `Up to date list of papers <https://orcid.org/0000-0003-4061-2514>`_
 
 - `PhD manuscript (in French) <https://zenodo.org/record/1256777>`_
 
 - Exemple of conference presentations :
    
-   - `European Geoscience Union assembly, Vienna (biggest scientific conference in Europe) <https://presentations.copernicus.org/EGU2019-4388_presentation.pdf>`_
+   - A method to combine foward modeling, optimal estimation and nested sampling at the `European Geoscience Union assembly, Vienna (biggest scientific conference in Europe) <https://presentations.copernicus.org/EGU2019-4388_presentation.pdf>`_
 
-   - `Seminar at University College of London (UCL) <https://zenodo.org/record/1244739>`_
+   - A benchmark between 3 different forward model `Seminar at University College of London (UCL) <https://zenodo.org/record/1244739>`_
 
 Function documentations
 ========================

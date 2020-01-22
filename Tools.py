@@ -33,6 +33,7 @@ from math import pi
 from scipy.stats import chi2
 from scipy.interpolate import griddata
 from astropy.table import Table
+import sqlite3
 
 
 def gaussian1D(height, x, center_x, width_x, logfile=[]):
@@ -148,7 +149,7 @@ def MassCalc (logg, R, logfile=[]):
         ]})
         Result = float('nan')
     else:
-        Result = (((10.**(logg-2))/(G)) * ( R*R_jup )**2) / M_jup
+        Result = ((((u.m/(u.s**2))*10.**(logg-2))/(G)) * ( R*R_jup )**2) / M_jup
     return Result, logfile
 
 def PlusMinus (Tab, logfile=[]):
@@ -625,6 +626,8 @@ class InputFile():
         self.dir_output=data['dir_output']
         self.planetName=data['planetName']
         self.typeCloud=data['typeCloud']
+        self.database=data['database']
+        self.table=data['table']
     
     def get_param(self):
         return self.R, self.Distance, self.FitType, self.dir_input, self.dir_obs, self.dir_output, self.planetName, self.typeCloud
