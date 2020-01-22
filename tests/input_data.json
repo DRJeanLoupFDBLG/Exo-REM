@@ -1,0 +1,12 @@
+{
+	"R":71e6, 
+	"Distance":1.2742094e+18,
+	"FitType":"Full",
+	"dir_input":"../input/grids/cloud/",
+    "dir_obs":"../input/obs/",
+	"dir_output":"output/",
+	"planetName":"hr8799e",
+	"typeCloud":"0003new",
+	"database":"Exo-REM.db",
+	"table":"GRIDCLOUD"
+}
